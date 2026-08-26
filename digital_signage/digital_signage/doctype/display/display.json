@@ -1,0 +1,181 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:device_identifier",
+ "creation": "2026-08-25 10:50:34.631840",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "display_name",
+  "device_identifier",
+  "is_active",
+  "registration_status",
+  "client_version",
+  "last_seen",
+  "last_heartbeat",
+  "last_sync_at",
+  "last_sync_version",
+  "current_campaign",
+  "current_playlist",
+  "current_media",
+  "last_error"
+ ],
+ "fields": [
+  {
+   "fieldname": "display_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Display Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "device_identifier",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Device Identifier",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "default": "Pending",
+   "fieldname": "registration_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Registration Status",
+   "options": "Pending\nRegistered\nRevoked"
+  },
+  {
+   "fieldname": "client_version",
+   "fieldtype": "Data",
+   "label": "Client Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_seen",
+   "fieldtype": "Datetime",
+   "label": "Last Seen",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_heartbeat",
+   "fieldtype": "Datetime",
+   "label": "Last Heartbeat",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_sync_at",
+   "fieldtype": "Datetime",
+   "label": "Last Sync At",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_sync_version",
+   "fieldtype": "Int",
+   "label": "Last Sync Version",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_campaign",
+   "fieldtype": "Link",
+   "label": "Current Campaign",
+   "options": "Campaign",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_playlist",
+   "fieldtype": "Link",
+   "label": "Current Playlist",
+   "options": "Playlist",
+   "read_only": 1
+  },
+  {
+   "fieldname": "current_media",
+   "fieldtype": "Link",
+   "label": "Current Media",
+   "options": "Media",
+   "read_only": 1
+  },
+  {
+   "fieldname": "last_error",
+   "fieldtype": "Small Text",
+   "label": "Last Error",
+   "read_only": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-25 10:50:34.631840",
+ "modified_by": "Administrator",
+ "module": "Digital Signage",
+ "name": "Display",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Signage Administrator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Signage Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Signage Operator",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Signage Viewer",
+   "share": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

@@ -1,0 +1,89 @@
+"""Shared enums/constants for the digital_signage app.
+
+Single source of truth so Phase B doctypes, Phase C services, and the
+Milestone 2 device API all agree on the same string values.
+"""
+
+CONTRACT_VERSION = "v1"
+
+# Media
+MEDIA_TYPE_IMAGE = "Image"
+MEDIA_TYPE_VIDEO = "Video"
+MEDIA_TYPES = [MEDIA_TYPE_IMAGE, MEDIA_TYPE_VIDEO]
+
+MEDIA_LIFECYCLE_UPLOADED = "Uploaded"
+MEDIA_LIFECYCLE_VALIDATED = "Validated"
+MEDIA_LIFECYCLE_ACTIVE = "Active"
+MEDIA_LIFECYCLE_RETIRED = "Retired"
+MEDIA_LIFECYCLE_STATUSES = [
+	MEDIA_LIFECYCLE_UPLOADED,
+	MEDIA_LIFECYCLE_VALIDATED,
+	MEDIA_LIFECYCLE_ACTIVE,
+	MEDIA_LIFECYCLE_RETIRED,
+]
+
+# Display registration/connectivity (registration is stored; connectivity is
+# always computed from last_heartbeat, never stored).
+REGISTRATION_PENDING = "Pending"
+REGISTRATION_REGISTERED = "Registered"
+REGISTRATION_REVOKED = "Revoked"
+REGISTRATION_STATUSES = [REGISTRATION_PENDING, REGISTRATION_REGISTERED, REGISTRATION_REVOKED]
+
+CONNECTIVITY_ONLINE = "Online"
+CONNECTIVITY_OFFLINE = "Offline"
+CONNECTIVITY_UNKNOWN = "Unknown"
+
+# Campaign
+INTERRUPT_POLICY_NORMAL = "Normal"
+INTERRUPT_POLICY_IMMEDIATE_OVERRIDE = "Immediate Override"
+INTERRUPT_POLICIES = [INTERRUPT_POLICY_NORMAL, INTERRUPT_POLICY_IMMEDIATE_OVERRIDE]
+
+# Schedule
+RECURRENCE_ALWAYS = "Always"
+RECURRENCE_DATE_RANGE = "Date Range"
+RECURRENCE_DAILY = "Daily"
+RECURRENCE_SELECTED_DAYS = "Selected Days"
+RECURRENCE_TYPES = [
+	RECURRENCE_ALWAYS,
+	RECURRENCE_DATE_RANGE,
+	RECURRENCE_DAILY,
+	RECURRENCE_SELECTED_DAYS,
+]
+
+TIMEZONE_POLICY_DISPLAY_LOCAL = "Display Local"
+TIMEZONE_POLICY_BUSINESS_TIMEZONE = "Business Timezone"
+TIMEZONE_POLICIES = [TIMEZONE_POLICY_DISPLAY_LOCAL, TIMEZONE_POLICY_BUSINESS_TIMEZONE]
+
+# Python date.weekday(): Monday=0 .. Sunday=6. Field names on Schedule's
+# Selected Days follow this order so evaluation is a direct index lookup.
+WEEKDAY_FIELDS = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+
+# Campaign Assignment
+TARGET_TYPE_DISPLAY = "Display"
+TARGET_TYPE_DISPLAY_GROUP = "Display Group"
+TARGET_TYPES = [TARGET_TYPE_DISPLAY, TARGET_TYPE_DISPLAY_GROUP]
+
+# Device API (signage.api.v1.*, see core/device_errors.py for the exception
+# classes these back) — used by every api/v1 endpoint's error responses.
+# CONTRACT_VERSION_UNSUPPORTED/SYNC_VERSION_INVALID stay unused until delta
+# sync exists (Milestone 3+); defined now so the code is a single source.
+ERROR_AUTHENTICATION_FAILED = "AUTHENTICATION_FAILED"
+ERROR_DEVICE_NOT_FOUND = "DEVICE_NOT_FOUND"
+ERROR_DEVICE_REVOKED = "DEVICE_REVOKED"
+ERROR_DEVICE_DISABLED = "DEVICE_DISABLED"
+ERROR_CONTRACT_VERSION_UNSUPPORTED = "CONTRACT_VERSION_UNSUPPORTED"
+ERROR_SYNC_VERSION_INVALID = "SYNC_VERSION_INVALID"
+ERROR_VALIDATION_ERROR = "VALIDATION_ERROR"
+ERROR_TEMPORARY_SERVER_ERROR = "TEMPORARY_SERVER_ERROR"
+
+# Device pairing/credential lifetimes (services/device_service.py).
+PAIRING_CODE_LENGTH = 8
+PAIRING_CODE_EXPIRY_MINUTES = 15
+CREDENTIAL_SECRET_LENGTH = 32
+CREDENTIAL_EXPIRY_DAYS = 365
+
+ROLE_ADMINISTRATOR = "Signage Administrator"
+ROLE_MANAGER = "Signage Manager"
+ROLE_OPERATOR = "Signage Operator"
+ROLE_VIEWER = "Signage Viewer"
+ALL_ROLES = [ROLE_ADMINISTRATOR, ROLE_MANAGER, ROLE_OPERATOR, ROLE_VIEWER]

@@ -1,0 +1,122 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:template_name",
+ "creation": "2026-08-25 22:35:53.063876",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "template_name",
+  "html_body",
+  "background_image",
+  "width",
+  "height",
+  "is_active",
+  "background_type",
+  "background_video",
+  "background_overlay_opacity"
+ ],
+ "fields": [
+  {
+   "fieldname": "template_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Template Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "description": "Jinja2 body rendered via frappe.render_template. Available in context: title, subtitle, people (list of {person_name, person_title, logo_url}), background_url.",
+   "fieldname": "html_body",
+   "fieldtype": "Code",
+   "label": "Html Body",
+   "options": "HTML",
+   "reqd": 1
+  },
+  {
+   "fieldname": "background_image",
+   "fieldtype": "Attach Image",
+   "label": "Background Image"
+  },
+  {
+   "default": "1920",
+   "fieldname": "width",
+   "fieldtype": "Int",
+   "label": "Width",
+   "reqd": 1
+  },
+  {
+   "default": "1080",
+   "fieldname": "height",
+   "fieldtype": "Int",
+   "label": "Height",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "label": "Is Active"
+  },
+  {
+   "default": "Image",
+   "fieldname": "background_type",
+   "fieldtype": "Select",
+   "label": "Background Type",
+   "options": "Image\nVideo"
+  },
+  {
+   "depends_on": "eval:doc.background_type == \"Video\"",
+   "fieldname": "background_video",
+   "fieldtype": "Attach",
+   "label": "Background Video"
+  },
+  {
+   "default": "0.3",
+   "description": "Only used when Background Type is Video: the still Background Image is layered on top of the video at this opacity, as a watermark/brand frame, so the video plays fully visible underneath.",
+   "fieldname": "background_overlay_opacity",
+   "fieldtype": "Float",
+   "label": "Background Overlay Opacity (Video mode)"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2026-08-26 10:03:49.080453",
+ "modified_by": "Administrator",
+ "module": "Digital Signage",
+ "name": "Content Template",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Administrator",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

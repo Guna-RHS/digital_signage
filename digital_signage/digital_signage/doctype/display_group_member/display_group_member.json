@@ -1,0 +1,36 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-08-25 10:50:34.898846",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "display"
+ ],
+ "fields": [
+  {
+   "fieldname": "display",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Display",
+   "options": "Display",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-25 10:50:34.898846",
+ "modified_by": "Administrator",
+ "module": "Digital Signage",
+ "name": "Display Group Member",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

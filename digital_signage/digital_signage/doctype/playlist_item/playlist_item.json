@@ -1,0 +1,70 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2026-08-25 10:50:34.015718",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "media",
+  "media_type",
+  "sort_order",
+  "image_duration_seconds",
+  "enabled"
+ ],
+ "fields": [
+  {
+   "fieldname": "media",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Media",
+   "options": "Media",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "media.media_type",
+   "fieldname": "media_type",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Media Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sort_order",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Sort Order",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.media_type != \"Video\"",
+   "description": "Ignored for Video media — video plays for its own actual length (the video's own end is what advances the playlist), never a manually entered number.",
+   "fieldname": "image_duration_seconds",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Image Duration Seconds"
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2026-08-25 10:50:34.015718",
+ "modified_by": "Administrator",
+ "module": "Digital Signage",
+ "name": "Playlist Item",
+ "owner": "Administrator",
+ "permissions": [],
+ "row_format": "Dynamic",
+ "rows_threshold_for_grid_search": 20,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

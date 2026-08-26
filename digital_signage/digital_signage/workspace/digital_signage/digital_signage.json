@@ -1,0 +1,187 @@
+{
+ "charts": [],
+ "content": "[\n {\n  \"data\": {\n   \"col\": 12,\n   \"text\": \"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\"\n  },\n  \"id\": \"34afe38f2b\",\n  \"type\": \"header\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Media\"\n  },\n  \"id\": \"dc5332e207\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Displays\"\n  },\n  \"id\": \"4ba1119553\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Campaigns\"\n  },\n  \"id\": \"f54da3453e\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Playlists\"\n  },\n  \"id\": \"111a0bce54\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 12\n  },\n  \"id\": \"980f4d7d76\",\n  \"type\": \"spacer\"\n },\n {\n  \"data\": {\n   \"col\": 12,\n   \"text\": \"<span class=\\\"h4\\\"><b>Documents</b></span>\"\n  },\n  \"id\": \"5931770559\",\n  \"type\": \"header\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Content\",\n   \"col\": 4\n  },\n  \"id\": \"b70c6605af\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Campaigns & Scheduling\",\n   \"col\": 4\n  },\n  \"id\": \"2091afddb4\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Devices\",\n   \"col\": 4\n  },\n  \"id\": \"3483fe58b2\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Configuration\",\n   \"col\": 4\n  },\n  \"id\": \"46584f8484\",\n  \"type\": \"card\"\n }\n]",
+ "creation": "2026-08-25 11:30:30.728337",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "hide_custom": 0,
+ "icon": "image-view",
+ "idx": 0,
+ "indicator_color": "blue",
+ "is_hidden": 0,
+ "label": "Digital Signage",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Content",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Media",
+   "link_count": 0,
+   "link_to": "Media",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Playlists",
+   "link_count": 0,
+   "link_to": "Playlist",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Campaigns & Scheduling",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Campaigns",
+   "link_count": 0,
+   "link_to": "Campaign",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Schedules",
+   "link_count": 0,
+   "link_to": "Schedule",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Campaign Assignments",
+   "link_count": 0,
+   "link_to": "Campaign Assignment",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Devices",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Displays",
+   "link_count": 0,
+   "link_to": "Display",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Display Groups",
+   "link_count": 0,
+   "link_to": "Display Group",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Configuration",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Signage State Versions",
+   "link_count": 0,
+   "link_to": "Signage State Version",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Digital Signage Settings",
+   "link_count": 0,
+   "link_to": "Digital Signage Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-25 11:30:30.728337",
+ "modified_by": "Administrator",
+ "module": "Digital Signage",
+ "name": "Digital Signage",
+ "number_cards": [],
+ "owner": "Administrator",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Media",
+   "link_to": "Media",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Displays",
+   "link_to": "Display",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Campaigns",
+   "link_to": "Campaign",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Playlists",
+   "link_to": "Playlist",
+   "stats_filter": "[]",
+   "type": "DocType"
+  }
+ ],
+ "title": "Digital Signage"
+}
