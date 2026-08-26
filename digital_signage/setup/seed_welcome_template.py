@@ -5,38 +5,63 @@ support any number of people (the original only ever supported one name).
 
     bench --site <site> execute digital_signage.setup.seed_welcome_template.run
 
-Fonts are embedded as base64 @font-face data (not relying on the font
-being installed system-wide) because the background image's baked-in
-"Welcome" / "RHS Logistics LLC" text turned out to be set in Poppins
+Every static brand element (logo, "RHS Logistics LLC", tagline, "Welcome"
+heading, divider line) is its own positioned HTML element here — not one
+flat baked-in photo — mirroring how the rhs-signage prototype's own
+`layout.html` actually composes a display (separate text/image/shape
+layers with their own x/y/w/h/opacity), not a single background image.
+Position/size/font values are ported directly from that prototype's own
+saved layer definitions (its `layouts` SQLite table), converted from cqw to
+vw (numerically identical for a fixed-width render target). Doing it this
+way — rather than one composite photo — is what lets the Video background
+variant show the video cleanly behind crisp text, with nothing competing
+for the same pixels: swap the background behind these layers (a solid
+color, or a video) without needing a second baked photo, and there's
+nothing left to make opaque or transparent to control how much of it
+shows through.
+
+Fonts and the logo are embedded as base64 data (not relying on anything
+being installed/reachable on whatever server runs this) because the
+"Welcome" / "RHS Logistics LLC" brand type turned out to be Poppins
 Bold/SemiBold, not the sans-serif default a browser would otherwise fall
-back to. The person-overlay box's position/size and the tie-break sizing
-per person-count are the result of fitting a real 1/2/3-person case inside
-the background image's available space without overlapping the logo,
-tagline, or "Welcome" heading — not arbitrary numbers.
+back to.
 """
 
-import base64
 import os
 
 import frappe
 
 _ASSETS_DIR = os.path.join(os.path.dirname(__file__), "assets")
 
-# The overlay content only -- no background of its own. The background
-# (a still image, or a video with this template's Background Image
-# layered on top as a low-opacity watermark) is composited by
-# template_service.py's page wrapper, not baked in here; see that
-# module's render_to_png/render_to_video.
-HTML_BODY_TEMPLATE = """<div style="position:relative;width:100%;height:100%;">
+# Every static element's position/size/font is ported from the rhs-signage
+# prototype's own saved layout definition (displays.current_template =
+# 'layout:3' in its signage.db) -- not arbitrary numbers. Only the
+# person-overlay block (position/sizing per person-count) is new, since the
+# prototype only ever supported a single name.
+HTML_BODY_TEMPLATE = """<div style="position:relative;width:100%;height:100%;font-family:'Poppins',sans-serif;">
   <style>
     @font-face { font-family: 'Poppins'; font-weight: 700; src: url(data:font/ttf;base64,__BOLD__) format('truetype'); }
     @font-face { font-family: 'Poppins'; font-weight: 600; src: url(data:font/ttf;base64,__SEMIBOLD__) format('truetype'); }
   </style>
+
+  <img src="data:image/png;base64,__LOGO__" style="position:absolute;left:5.9%;top:11.8%;width:34.4%;height:34.6%;object-fit:contain;">
+
+  <div style="position:absolute;left:2.6%;top:46.9%;width:41.1%;height:13.5%;font-size:5.625vw;font-weight:700;color:#325083;text-align:left;">RHS Logistics LLC</div>
+
+  <div style="position:absolute;left:9%;top:60.3%;width:34.6%;height:4.5%;font-size:1.425vw;font-style:italic;color:#325083;text-align:right;">Your preferred Logistics PARTNER for regional distribution</div>
+
+  <div style="position:absolute;left:17%;top:66.8%;width:26.6%;height:9.4%;font-size:1.425vw;font-weight:700;font-style:italic;color:#325083;text-align:right;white-space:pre-line;">Rais Hassan Saadi  (RHS) Group
+Established 1910</div>
+
+  <div style="position:absolute;left:44.6%;top:7.3%;width:0.15%;height:85.4%;background-color:#325083;"></div>
+
+  <div style="position:absolute;left:53.56%;top:21.57%;width:37.37%;height:16.16%;display:flex;align-items:center;justify-content:center;font-size:6.87vw;font-weight:700;color:#325083;text-align:center;">Welcome</div>
+
   {% set n = people|length %}
   <div style="position:absolute;left:56.9%;top:{{ 46.9 if n == 1 else (43 if n == 2 else 39) }}%;width:30.7%;
   height:{{ 38 if n == 1 else (42 if n == 2 else 48) }}%;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
-  gap:{{ 2.2 if n == 1 else (1.5 if n == 2 else 0.9) }}vw;text-align:center;color:#325083;font-family:'Poppins',sans-serif;">
+  gap:{{ 2.2 if n == 1 else (1.5 if n == 2 else 0.9) }}vw;text-align:center;color:#325083;">
     {% for person in people %}
     <div style="display:flex;flex-direction:column;align-items:center;">
       {% if person.logo_url %}
@@ -57,30 +82,16 @@ def _html_body():
 		bold_b64 = fh.read().strip()
 	with open(os.path.join(_ASSETS_DIR, "poppins_semibold_b64.txt")) as fh:
 		semibold_b64 = fh.read().strip()
-	return HTML_BODY_TEMPLATE.replace("__BOLD__", bold_b64).replace("__SEMIBOLD__", semibold_b64)
-
-
-def _upload_background_image():
-	existing = frappe.db.exists("File", {"file_name": "welcome_background.png"})
-	if existing:
-		return frappe.db.get_value("File", existing, "file_url")
-	with open(os.path.join(_ASSETS_DIR, "welcome_background.png"), "rb") as fh:
-		content = fh.read()
-	f = frappe.get_doc(
-		{
-			"doctype": "File",
-			"file_name": "welcome_background.png",
-			"content": base64.b64encode(content).decode(),
-			"decode": True,
-			"is_private": 1,
-		}
+	with open(os.path.join(_ASSETS_DIR, "rhs_logo_b64.txt")) as fh:
+		logo_b64 = fh.read().strip()
+	return (
+		HTML_BODY_TEMPLATE.replace("__BOLD__", bold_b64)
+		.replace("__SEMIBOLD__", semibold_b64)
+		.replace("__LOGO__", logo_b64)
 	)
-	f.insert(ignore_permissions=True)
-	return f.file_url
 
 
 def run():
-	background_url = _upload_background_image()
 	html_body = _html_body()
 
 	if not frappe.db.exists("Content Template", "Welcome"):
@@ -89,7 +100,6 @@ def run():
 				"doctype": "Content Template",
 				"template_name": "Welcome",
 				"html_body": html_body,
-				"background_image": background_url,
 				"background_type": "Image",
 				"width": 1920,
 				"height": 1080,
@@ -104,9 +114,7 @@ def run():
 				"doctype": "Content Template",
 				"template_name": "Welcome (Video)",
 				"html_body": html_body,
-				"background_image": background_url,
 				"background_type": "Video",
-				"background_overlay_opacity": 0.3,
 				"width": 1920,
 				"height": 1080,
 				"is_active": 1,

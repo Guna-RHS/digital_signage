@@ -64,15 +64,17 @@ def render_to_png(template, context) -> bytes:
 		) from e
 
 	body_html = frappe.render_template(template.html_body, context)
+	background_url = context.get("background_url")
+	bg_image_tag = f'<img id="__bg_image" src="{background_url}">' if background_url else ""
 	page_html = f"""<!doctype html>
 <html><head><meta charset="utf-8">
 <style>* {{ margin:0; padding:0; box-sizing:border-box; }}
-html,body {{ width:{template.width}px; height:{template.height}px; overflow:hidden; position:relative; }}
+html,body {{ width:{template.width}px; height:{template.height}px; overflow:hidden; position:relative; background:#fff; }}
 #__bg_image {{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }}
 #__overlay {{ position:absolute; inset:0; width:100%; height:100%; z-index:1; }}
 </style>
 </head><body>
-<img id="__bg_image" src="{context.get("background_url") or ""}">
+{bg_image_tag}
 <div id="__overlay">{body_html}</div>
 </body></html>"""
 
@@ -108,25 +110,37 @@ def render_to_video(template, context) -> bytes:
 
 	body_html = frappe.render_template(template.html_body, context)
 	video_uri = _data_uri(template.background_video)
-	overlay_opacity = template.background_overlay_opacity or 0.3
-	# Three independent layers, exactly matching the rhs-signage prototype's
-	# layout.html layer model: video plays at full opacity as the base:
-	# the still Background Image sits above it as a low-opacity brand
-	# frame/watermark (not a second background hiding the video, which is
-	# what naively reusing render_to_png's single-background approach did
-	# here before — the video was fully obscured); person overlay text on
-	# top of both.
+	# Background Image is optional here — an extra watermark layered
+	# between the video and the text, at this opacity (an *image* opacity:
+	# CSS layering means an opaque layer fully blocks whatever's beneath it
+	# regardless of that lower layer's own opacity, so putting the opacity
+	# on the video instead did nothing visible — it was always fully
+	# hidden either way). Most templates (e.g. Welcome) put logo/text
+	# directly in html_body instead and leave Background Image unset, so
+	# there's nothing to layer here at all.
+	background_url = context.get("background_url")
+	image_opacity = template.background_overlay_opacity or 0.85
+	watermark_tag = (
+		f'<img id="__bg_watermark" src="{background_url}" style="position:absolute; inset:0; '
+		f'width:100%; height:100%; object-fit:cover; z-index:1; opacity:{image_opacity};">'
+		if background_url
+		else ""
+	)
+	# A sharp, unblurred video at any opacity still reads as "busy" behind
+	# text — blurring it softens it into ambient motion/color rather than
+	# competing detail, letting whatever's on top (the watermark, if any,
+	# or the text/logo layers directly) read as dominant while the video
+	# stays visibly alive underneath.
 	page_html = f"""<!doctype html>
 <html><head><meta charset="utf-8">
 <style>* {{ margin:0; padding:0; box-sizing:border-box; }}
 html,body {{ width:{template.width}px; height:{template.height}px; overflow:hidden; position:relative; }}
-#__bg_video {{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }}
-#__bg_watermark {{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; opacity:{overlay_opacity}; }}
+#__bg_video {{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; filter:blur(8px); transform:scale(1.05); }}
 #__overlay {{ position:absolute; inset:0; width:100%; height:100%; z-index:2; }}
 </style>
 </head><body>
 <video id="__bg_video" src="{video_uri}" autoplay muted playsinline></video>
-<img id="__bg_watermark" src="{context.get("background_url") or ""}">
+{watermark_tag}
 <div id="__overlay">{body_html}</div>
 </body></html>"""
 

@@ -1,7 +1,7 @@
 {
  "charts": [],
- "content": "[\n {\n  \"data\": {\n   \"col\": 12,\n   \"text\": \"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\"\n  },\n  \"id\": \"34afe38f2b\",\n  \"type\": \"header\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Media\"\n  },\n  \"id\": \"dc5332e207\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Displays\"\n  },\n  \"id\": \"4ba1119553\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Campaigns\"\n  },\n  \"id\": \"f54da3453e\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Playlists\"\n  },\n  \"id\": \"111a0bce54\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 12\n  },\n  \"id\": \"980f4d7d76\",\n  \"type\": \"spacer\"\n },\n {\n  \"data\": {\n   \"col\": 12,\n   \"text\": \"<span class=\\\"h4\\\"><b>Documents</b></span>\"\n  },\n  \"id\": \"5931770559\",\n  \"type\": \"header\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Content\",\n   \"col\": 4\n  },\n  \"id\": \"b70c6605af\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Campaigns & Scheduling\",\n   \"col\": 4\n  },\n  \"id\": \"2091afddb4\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Devices\",\n   \"col\": 4\n  },\n  \"id\": \"3483fe58b2\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Configuration\",\n   \"col\": 4\n  },\n  \"id\": \"46584f8484\",\n  \"type\": \"card\"\n }\n]",
- "creation": "2026-08-25 11:30:30.728337",
+ "content": "[\n {\n  \"data\": {\n   \"col\": 12,\n   \"text\": \"<span class=\\\"h4\\\"><b>Your Shortcuts</b></span>\"\n  },\n  \"id\": \"6d92c539a9\",\n  \"type\": \"header\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Media\"\n  },\n  \"id\": \"4c60f8fee7\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Displays\"\n  },\n  \"id\": \"ed9402b12e\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Campaigns\"\n  },\n  \"id\": \"b74b9f994f\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Playlists\"\n  },\n  \"id\": \"bb25a54aae\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 3,\n   \"shortcut_name\": \"Generated Content\"\n  },\n  \"id\": \"39f7714148\",\n  \"type\": \"shortcut\"\n },\n {\n  \"data\": {\n   \"col\": 12\n  },\n  \"id\": \"7481d7fe91\",\n  \"type\": \"spacer\"\n },\n {\n  \"data\": {\n   \"col\": 12,\n   \"text\": \"<span class=\\\"h4\\\"><b>Documents</b></span>\"\n  },\n  \"id\": \"7e48867cdd\",\n  \"type\": \"header\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Content\",\n   \"col\": 4\n  },\n  \"id\": \"ccc9fed710\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Templated Content\",\n   \"col\": 4\n  },\n  \"id\": \"75f4f3041b\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Campaigns & Scheduling\",\n   \"col\": 4\n  },\n  \"id\": \"ba689d7a43\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Devices\",\n   \"col\": 4\n  },\n  \"id\": \"91da0be9dc\",\n  \"type\": \"card\"\n },\n {\n  \"data\": {\n   \"card_name\": \"Configuration\",\n   \"col\": 4\n  },\n  \"id\": \"273d4cb3c4\",\n  \"type\": \"card\"\n }\n]",
+ "creation": "2026-08-26 10:31:12.697480",
  "custom_blocks": [],
  "docstatus": 0,
  "doctype": "Workspace",
@@ -37,6 +37,35 @@
    "label": "Playlists",
    "link_count": 0,
    "link_to": "Playlist",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Templated Content",
+   "link_count": 0,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Content Templates",
+   "link_count": 0,
+   "link_to": "Content Template",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Generated Content",
+   "link_count": 0,
+   "link_to": "Generated Content",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -139,7 +168,7 @@
    "type": "Link"
   }
  ],
- "modified": "2026-08-25 11:30:30.728337",
+ "modified": "2026-08-26 10:31:12.697480",
  "modified_by": "Administrator",
  "module": "Digital Signage",
  "name": "Digital Signage",
@@ -179,6 +208,14 @@
    "doc_view": "List",
    "label": "Playlists",
    "link_to": "Playlist",
+   "stats_filter": "[]",
+   "type": "DocType"
+  },
+  {
+   "color": "Grey",
+   "doc_view": "List",
+   "label": "Generated Content",
+   "link_to": "Generated Content",
    "stats_filter": "[]",
    "type": "DocType"
   }

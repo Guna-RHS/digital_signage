@@ -72,17 +72,17 @@
    "label": "Background Video"
   },
   {
-   "default": "0.3",
-   "description": "Only used when Background Type is Video: the still Background Image is layered on top of the video at this opacity, as a watermark/brand frame, so the video plays fully visible underneath.",
+   "default": "0.85",
+   "description": "Only used when Background Type is Video: the video plays at full opacity as the base layer; the Background Image sits on top at this opacity so the video shows through it lightly. Higher = image more dominant, lower = video more visible.",
    "fieldname": "background_overlay_opacity",
    "fieldtype": "Float",
-   "label": "Background Overlay Opacity (Video mode)"
+   "label": "Background Image Opacity (Video mode)"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-08-26 10:03:49.080453",
+ "modified": "2026-08-26 10:47:09.210574",
  "modified_by": "Administrator",
  "module": "Digital Signage",
  "name": "Content Template",

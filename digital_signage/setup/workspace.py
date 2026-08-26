@@ -21,6 +21,7 @@ SHORTCUTS = [
 	("Displays", "Display"),
 	("Campaigns", "Campaign"),
 	("Playlists", "Playlist"),
+	("Generated Content", "Generated Content"),
 ]
 
 # (card title, [(label, doctype), ...]) — every doctype, grouped the way an
@@ -28,6 +29,10 @@ SHORTCUTS = [
 # what it plays on, and admin-only configuration.
 CARDS = [
 	("Content", [("Media", "Media"), ("Playlists", "Playlist")]),
+	(
+		"Templated Content",
+		[("Content Templates", "Content Template"), ("Generated Content", "Generated Content")],
+	),
 	(
 		"Campaigns & Scheduling",
 		[("Campaigns", "Campaign"), ("Schedules", "Schedule"), ("Campaign Assignments", "Campaign Assignment")],
@@ -41,8 +46,14 @@ CARDS = [
 
 
 def run():
+	# Re-runnable, not just idempotent-once: delete-and-recreate rather than
+	# silently no-op'ing when it already exists, so this script stays the
+	# one source of truth for the workspace layout — adding a doctype to
+	# SHORTCUTS/CARDS above and re-running actually takes effect instead of
+	# needing a manual desk edit every time (which is how Generated Content
+	# and Content Template ended up missing from here in the first place).
 	if frappe.db.exists("Workspace", WORKSPACE_NAME):
-		return
+		frappe.delete_doc("Workspace", WORKSPACE_NAME, force=True, ignore_permissions=True)
 
 	shortcuts = [
 		{
