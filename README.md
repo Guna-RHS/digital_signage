@@ -42,16 +42,33 @@ desk workspace.
 Desk → Digital Signage → **Displays** → New. Set a `device_identifier`
 (this is what the player app is configured with) and mark it Active.
 
-### 2. Add content
+### 2. Add content — the four-step chain
 
-Either upload media directly (**Media** → New → attach a file, set Active
-once it's gone through the lifecycle: Uploaded → Validated → Active), or
-generate it from a template — see **Templated content generation** below.
+Four things have to exist, in this order, before anything plays on a
+screen. **Every step after the first uses the black "Create" button** at
+the top of the previous record's form — it opens the next form already
+linked to the one you came from, so you never have to hunt down the right
+record yourself:
 
-Then: **Playlist** (one or more Media, in order) → **Campaign** (references
-a Playlist, has a priority) → **Schedule** (when the Campaign is eligible —
-Always, a date range, daily, or specific weekdays/times) → **Campaign
-Assignment** (which Display or Display Group the Campaign applies to).
+1. **Media** — upload a file directly (**Media** → New → attach, set
+   Active once it's gone through Uploaded → Validated → Active), or
+   generate it from a template (see **Templated content generation**
+   below).
+2. **Playlist** — one or more Media, in order. Open it → **Create ▾ →
+   Campaign**.
+3. **Campaign** — references the Playlist, has a `priority`. This form has
+   two extra sections, **Schedules** and **Assignments**, listing whatever
+   already exists — and its own **Create ▾** button adds either:
+   - **Schedule** — *when* the campaign is eligible (Always, a date range,
+     daily, or specific weekdays/times)
+   - **Campaign Assignment** — *which* Display or Display Group it applies to
+
+**A Campaign needs at least one active Schedule *and* one active Campaign
+Assignment to ever show up anywhere** — either alone is not enough. Forget
+one and the campaign just silently never plays, which is confusing to
+debug after the fact — so saving a Schedule or Assignment with the other
+one missing pops a message telling you exactly that, with a button to
+create the missing piece right there.
 
 Higher `priority` (on Campaign) and `assignment_priority` (on the
 Assignment) win when multiple campaigns are eligible for a display at the
@@ -61,9 +78,25 @@ and tie-break rules.
 ### 3. Pair a player to this display
 
 Open the Display record → **Generate Pairing Code**. This produces a
-one-time code (expires in 30 minutes) — give it, along with this site's
+one-time code (expires in 15 minutes) — give it, along with this site's
 URL and the Display's `device_identifier`, to whoever is setting up the
 player app (see that repo's README).
+
+### 4. How changes reach an already-paired display
+
+A paired player is offline-first: it plays from its own last-synced copy
+of the content, and only refreshes that copy when it actually syncs.
+**You don't need to do anything for that to happen** — any content change
+that affects a display (activating/deactivating a Campaign, editing a
+Schedule, adding an Assignment, etc.) automatically flags that display, and
+its own background check-in (every ~15 seconds) picks the change up on its
+own. Expect **20-30 seconds** end to end between saving a change and
+seeing it take effect on screen — that's the check-in interval plus the
+player actually re-rendering, not a bug.
+
+If you don't want to wait even that long, the Display record has a
+**Force Sync** button that nudges it the same way, just triggered by you
+instead of the timer.
 
 ### 4. Templated content generation
 
@@ -110,6 +143,31 @@ bench --site <your-site> uninstall-app digital_signage
 ```
 This is destructive (drops all its tables) — back up first
 (`bench --site <your-site> backup --with-files`).
+
+## "Why isn't my content showing?" checklist
+
+Work through these in order — this is the exact sequence that trips people
+up:
+
+1. **Does the Campaign have at least one active Schedule?** Open the
+   Campaign → check the **Schedules** section isn't empty, and that at
+   least one row isn't marked inactive.
+2. **Does the Campaign have at least one active Campaign Assignment**
+   pointing at the right Display (or a Display Group it belongs to)?
+   Check the **Assignments** section the same way.
+3. **Is the Campaign itself active?** (`Is Active` checkbox on the
+   Campaign form.)
+4. **Is the winning Schedule's time window actually covering right now?**
+   If it's not `Always`/all-day, check the recurrence type, date range,
+   and start/end time.
+5. **Has the display actually synced since you made the change?** Open the
+   Display record — check `Last Heartbeat` is recent (within the last
+   ~15-30s if the player is running) and `Last Sync At`. If it's stale,
+   either wait for the next automatic check-in or click **Force Sync**.
+6. **Is there a higher-priority campaign winning instead?** If multiple
+   campaigns are eligible for the same display at once, only the highest
+   `assignment_priority` (then Campaign `priority`) actually plays — see
+   `docs/SCHEDULING_AND_PRIORITY.md`.
 
 ## Running tests
 
