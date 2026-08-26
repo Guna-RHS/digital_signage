@@ -41,7 +41,28 @@ def bump_display_versions(display_names, reason):
 		version_doc.save(ignore_permissions=True)
 
 		if frappe.db.exists("Display", display_name):
-			frappe.db.set_value("Display", display_name, "force_sync_requested_at", generated_at)
+			_flag_for_sync(display_name, generated_at)
+
+
+def _flag_for_sync(display_name, generated_at):
+	"""Writes inline, inside whatever transaction is already open (the same
+	one bump_display_versions/version_doc.save() is part of) — it must
+	commit alongside the real change, not separately (an after_commit-deferred
+	write here was tried and doesn't work: that phase runs *after* the
+	surrounding commit() has already fired, so the write only lands in a
+	fresh transaction nothing then commits, and is silently lost the moment
+	the connection resets for the next request).
+
+	The Display row is also written concurrently by that device's own
+	heartbeat (~every 15s, independent of any content change) — a savepoint
+	around just this one write means a lock conflict from that race only
+	undoes this flag, never the real content change alongside it.
+	"""
+	frappe.db.sql("SAVEPOINT force_sync_flag")
+	try:
+		frappe.db.set_value("Display", display_name, "force_sync_requested_at", generated_at, update_modified=False)
+	except frappe.QueryDeadlockError:
+		frappe.db.rollback(save_point="force_sync_flag")
 
 
 def get_server_version(display_name):
