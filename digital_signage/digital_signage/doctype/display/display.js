@@ -43,6 +43,20 @@ frappe.ui.form.on("Display", {
 			});
 		}
 
+		frm.add_custom_button(
+			__("Campaign Assignment"),
+			() => {
+				frappe.model.with_doctype("Campaign Assignment", () => {
+					const new_doc = frappe.model.get_new_doc("Campaign Assignment");
+					new_doc.target_type = "Display";
+					new_doc.display = frm.doc.name;
+					new_doc.is_active = 1;
+					frappe.set_route("Form", "Campaign Assignment", new_doc.name);
+				});
+			},
+			__("Create")
+		);
+
 		if (frm.doc.registration_status !== "Revoked") {
 			frm.add_custom_button(__("Revoke Device"), () => {
 				frappe.confirm(
