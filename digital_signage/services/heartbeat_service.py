@@ -15,10 +15,17 @@ REPORTED_FIELDS = ("client_version", "current_campaign", "current_playlist", "cu
 
 
 def record_heartbeat(display, payload):
+	"""Returns whether an admin-requested force sync is pending, clearing the
+	flag in the same write so it fires exactly once — see
+	api/internal.request_force_sync."""
 	payload = payload or {}
+	force_sync = bool(display.get("force_sync_requested_at"))
 	updates = {"last_heartbeat": now_datetime(), "last_seen": now_datetime()}
+	if force_sync:
+		updates["force_sync_requested_at"] = None
 	for field in REPORTED_FIELDS:
 		value = payload.get(field)
 		if value:
 			updates[field] = value
 	frappe.db.set_value("Display", display.name, updates)
+	return force_sync

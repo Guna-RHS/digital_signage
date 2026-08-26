@@ -18,7 +18,8 @@
   "current_campaign",
   "current_playlist",
   "current_media",
-  "last_error"
+  "last_error",
+  "force_sync_requested_at"
  ],
  "fields": [
   {
@@ -105,6 +106,13 @@
    "fieldname": "last_error",
    "fieldtype": "Small Text",
    "label": "Last Error",
+   "read_only": 1
+  },
+  {
+   "description": "Set when an admin clicks Force Sync in Desk; cleared once the device's next heartbeat picks it up. Not part of the content-version/state_service pipeline — purely a one-shot signal for the device's short heartbeat poll.",
+   "fieldname": "force_sync_requested_at",
+   "fieldtype": "Datetime",
+   "label": "Force Sync Requested At",
    "read_only": 1
   }
  ],

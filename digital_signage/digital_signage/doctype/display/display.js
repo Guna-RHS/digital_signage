@@ -27,6 +27,22 @@ frappe.ui.form.on("Display", {
 			});
 		});
 
+		if (frm.doc.registration_status === "Registered") {
+			frm.add_custom_button(__("Force Sync"), () => {
+				frappe.call({
+					method: "digital_signage.api.internal.request_force_sync",
+					args: { display: frm.doc.name },
+					callback: () => {
+						frappe.show_alert({
+							message: __("Sync requested — the device will pick it up within ~15 seconds."),
+							indicator: "green",
+						});
+						frm.reload_doc();
+					},
+				});
+			});
+		}
+
 		if (frm.doc.registration_status !== "Revoked") {
 			frm.add_custom_button(__("Revoke Device"), () => {
 				frappe.confirm(
