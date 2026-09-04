@@ -468,6 +468,16 @@ def _fallback_playlist():
 	default_playlist = frappe.db.get_single_value("Digital Signage Settings", "default_playlist")
 	if not default_playlist:
 		return None
+	if not frappe.db.exists("Playlist", default_playlist):
+		# A dangling reference here (the configured Playlist was deleted
+		# without updating Digital Signage Settings) must not take down
+		# sync.get for every display on the server -- treat it exactly like
+		# "no fallback configured" rather than raising DoesNotExistError.
+		frappe.log_error(
+			title="Fallback playlist misconfigured",
+			message=f"Digital Signage Settings.default_playlist points at '{default_playlist}', which no longer exists.",
+		)
+		return None
 	playlist = frappe.get_doc("Playlist", default_playlist)
 	return playlist if playlist.is_active else None
 
