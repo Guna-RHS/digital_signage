@@ -83,7 +83,7 @@ app_license = "mit"
 # ------------
 
 # before_install = "digital_signage.install.before_install"
-# after_install = "digital_signage.install.after_install"
+after_install = "digital_signage.install.after_install"
 
 # Uninstallation
 # ------------
